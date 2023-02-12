@@ -3,6 +3,9 @@ import torch
 import math
 
 
+
+
+
 def conv_bn(inp, oup, stride):
     return nn.Sequential(
         nn.Conv2d(inp, oup, 3, stride, 1, bias=False),
@@ -144,7 +147,6 @@ class MobileNetV2(nn.Module):
                 m.weight.data.normal_(0, 0.01)
                 m.bias.data.zero_()
 
-
 def mobilenet_v2(pretrained=True):
     model = MobileNetV2(width_mult=1)
 
@@ -157,101 +159,4 @@ def mobilenet_v2(pretrained=True):
             'https://www.dropbox.com/s/47tyzpofuuyyv1b/mobilenetv2_1.0-f2a8633.pth.tar?dl=1', progress=True)
         model.load_state_dict(state_dict)
     return model
-
-
-if __name__ == '__main__':
-    net = mobilenet_v2(False)
-    x = torch.empty(1,3,224,224)
-    # x = torch.empty(1,3,256,256)
-    layer = 0
-    weight = []
-    act = []
-
-    read_forward = []
-    write_forward = []
-    memory_forward = []
-
-    read_backward = []
-    write_backward = []
-    memory_backward = []
-
-    # features
-    for block_idx,block in enumerate(net.features):
-        try:
-            for subblock_idx, subblock in enumerate(block.conv):
-                x=subblock(x)
-                print('block-'+str(block_idx),'subblock-'+str(subblock_idx),subblock,x.size())
-                layer += 1
-                weight.append(4*sum([para.nelement() for para in subblock.parameters()]))
-                print(4*sum([para.nelement() for para in subblock.parameters()]))
-                act.append(x.nelement()*4)
-        except:
-            x=block(x)
-            print('block-'+str(block_idx),block,x.size())
-            act.append(x.nelement()*4)
-            # weight.append(subblock.input_channels*out_channels*kernel_size**2)
-            weight.append(4*sum([para.nelement() for para in block.parameters()]))
-            print(4*sum([para.nelement() for para in block.parameters()]))
-
-        # print('block-'+str(block_idx),'parameters(B):'+str((4*x.nelement())))
-    # classifier
-    x = x.mean(3).mean(2)
-    x=net.classifier(x)
-    weight.append(4*sum([para.nelement() for para in net.classifier.parameters()]))
-    act.append(x.nelement()*4)
-    print('classifier',net.classifier,4*sum([para.nelement() for para in net.classifier.parameters()]))
-    print(4*(net.classifier.in_features *net.classifier.out_features))
-
-
-
-    batch_size = 64
-    weight_updating_reduction = 0.1
-
-    # compute forward step
-    read_forward = []
-    write_forward = []
-    memory_forward = [sum(weight)] # base memory is all the weights
-    act = [i*batch_size for i in act]
-    for new_act in act:
-        memory_forward.append(memory_forward[-1]+new_act)
-    for new_read in zip(weight,act):
-        # read input, read weight
-        read_forward.append(sum(new_read))
-    for new_write in act:
-        # write output
-        write_forward.append(new_write)
-
-
-    # compute backward step
-    read_backward = []
-    write_backward = []
-    memory_backward = [memory_forward[-1]] # base memory is from all the activations are stored
-    for used_act in act[-1::-1]:
-        memory_backward.append(memory_backward[-1]-used_act)
-
-    for new_read in zip(act[-1::-1],weight[-1::-1],act[-2::-1]):
-        # read gradient of output, weight, and input
-        read_backward.append(sum(new_read))
-
-    for new_write in zip(act[-1::-1],weight[-1::-1]):
-        # write gradient of weight, and gradient of input
-        
-        write_backward.append(new_write[0]+weight_updating_reduction*new_write[1])
-
-
-    # print(memory_backward)
-    # print(read_backward)
-    # print(memory_backward)
-
-
-
-
-    print(memory_forward+memory_backward,max(memory_forward+memory_backward))
-    print(read_forward+read_backward,sum(read_forward+read_backward))
-    print(write_forward+write_backward,sum(write_forward+write_backward))
-    
-
-
-
-
 
