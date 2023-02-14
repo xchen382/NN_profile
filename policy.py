@@ -31,47 +31,97 @@ class policy:
 
         # compute forward step
         read_forward = []
+        read_forward_act = []
+        read_forward_weight = []
+
         write_forward = []
+        write_forward_act = []
+
         flops_forward = []
+
+
         memory_forward = [sum(weight)] # base memory is all the weights
+        memory_forward_act = [0] # base memory is all the weights
+        memory_forward_weight = [sum(weight)] # base memory is all the weights
+
+
         act = [i*batch_size for i in act]
         flops = [i*batch_size for i in flops]
         inp = [i*batch_size for i in inp]
+
         for new_act in act:
             memory_forward.append(memory_forward[-1]+new_act)
+            memory_forward_act.append(memory_forward_act[-1]+new_act)
+
         for new_read in zip(weight,inp):
             # read input, read weight
             read_forward.append(sum(new_read))
+            read_forward_weight.append(new_read[0])
+            read_forward_act.append(new_read[1])
+
         for new_write in act:
             # write output
             write_forward.append(new_write)
+            write_forward_act.append(new_write)
+
         for new_comp in flops:
             flops_forward.append(new_comp)
 
         memory_forward = memory_forward[1::]
         # compute backward step
         read_backward = []
+        read_backward_act = []
+        read_backward_act_grad = []
+        read_backward_weight = []
+
         write_backward = []
+        write_backward_act_grad = []
+        write_backward_weight_grad = []
+
         flops_backward = []
+
         memory_backward = [memory_forward[-1]] # base memory is from all the activations are stored
+        memory_backward_act = [memory_forward_act[-1]] # base memory is from all the activations are stored
+        
         for used_act in act[-1::-1]:
             memory_backward.append(memory_backward[-1]-used_act)
+            memory_backward_act.append(memory_backward_act[-1]-used_act)
 
         for new_read in zip(act[-1::-1],act[-1::-1],weight[-1::-1],inp[-1::-1]):
             # read gradient of output, weight, and input
             read_backward.append(sum(new_read))
+            read_backward_act.append(new_read[3])
+            read_backward_act_grad.append(new_read[0]+new_read[1])
+            read_backward_weight.append(new_read[2])
 
         for new_write in zip(inp[-1::-1],weight[-1::-1]):
             # write gradient of weight, and gradient of input
             write_backward.append(sum(new_write))
+            write_backward_act_grad.append(new_write[0])
+            write_backward_weight_grad.append(new_write[1])
 
         for new_comp in flops[-1::-1]:
             flops_backward.append(2*new_comp)
 
         print('read(B):',sum(read_forward+read_backward))
+        print('read_forward_act(B):',sum(read_forward_act))
+        print('read_forward_weight(B):',sum(read_forward_weight))
+        print('read_backward_act(B):',sum(read_backward_act))
+        print('read_backward_act_grad(B):',sum(read_backward_act_grad))
+        print('read_backward_weight(B):',sum(read_backward_weight))
+
         print('write(B):',sum(write_forward+write_backward))
+        print('write_forward_act(B):',sum(write_forward_act))
+        print('write_backward_act_grad(B):',sum(write_backward_act_grad))
+        print('write_backward_weight_grad(B):',sum(write_backward_weight_grad))
+
+
         print('FLOPs(B):',sum(flops_forward+flops_backward))
+
         print('Peakmem(B):',max(memory_forward+memory_backward))
+        print('memory_forward_act(B):',max(memory_forward_act))
+        print('memory_forward_weight(B):',max(memory_forward_weight))
+        print('memory_backward_act(B):',max(memory_backward_act))
 
 
         return read_forward,write_forward,flops_forward,memory_forward,read_backward[-1::-1],write_backward[-1::-1],flops_backward[-1::-1],memory_backward[-1::-1]
@@ -86,23 +136,43 @@ class policy:
 
         # compute forward step
         read_forward = []
+        read_forward_act = []
+        read_forward_weight = []
+
+
         write_forward = []
+        write_forward_act = []
+
         flops_forward = []
-        memory_forward = [sum(weight)] # base memory is all the weights
+
+
+
+
         act = [i*batch_size/4 for i in act]
         flops = [i*batch_size for i in flops]
         inp = [i*batch_size/4 for i in inp]
         weight = [i/4 for i in weight]
 
+        memory_forward = [sum(weight)] # base memory is all the weights
+        memory_forward_act = [0] # base memory is all the weights
+        memory_forward_weight = [sum(weight)] # base memory is all the weights
+
         for new_act in act:
             memory_forward.append(memory_forward[-1]+new_act)
-        for new_read in zip(weight,inp,act):
-            # read weight, read quat input, orginal output
-            read_forward.append(new_read[0]+new_read[1]+new_read[2]*4)
+            memory_forward_act.append(memory_forward_act[-1]+new_act)
+
+        for new_read in zip(weight,inp):
+            # read weight, read quat input
+            read_forward.append(new_read[0]+new_read[1])
+
+            read_forward_weight.append(new_read[0])
+            read_forward_act.append(new_read[1])
+
         for new_write in act:
-            # write quant output, write output
-            write_forward.append(new_write*4)
+            # write quant output
             write_forward.append(new_write)
+            write_forward_act.append(new_write)
+
         for new_comp in flops:
             flops_forward.append(new_comp)
 
@@ -110,29 +180,59 @@ class policy:
         memory_forward = memory_forward[1::]
         # compute backward step
         read_backward = []
+        read_backward_act = []
+        read_backward_act_grad = []
+        read_backward_weight = []
+
         write_backward = []
+        write_backward_act_grad = []
+        write_backward_weight_grad = []
+
         flops_backward = []
+
         memory_backward = [memory_forward[-1]] # base memory is from all the activations are stored
+        memory_backward_act = [memory_forward_act[-1]] # base memory is from all the activations are stored
+
         for used_act in act[-1::-1]:
             memory_backward.append(memory_backward[-1]-used_act)
+            memory_backward_act.append(memory_backward_act[-1]-used_act)
+
 
         for new_read in zip(act[-1::-1],act[-1::-1],weight[-1::-1],inp[-1::-1]):
             # read quat gradient of output, weight, and quant input
-            # read orginal gradient of input and gradient of weight to quantize
-            read_backward.append(sum(new_read)+(new_read[2]+new_read[3])*4)
+            read_backward.append(sum(new_read))
+            read_backward_act.append(new_read[3])
+            read_backward_act_grad.append(new_read[0]+new_read[1])
+            read_backward_weight.append(new_read[2])
 
         for new_write in zip(inp[-1::-1],weight[-1::-1]):
-            # write origin/quant. gradient of weight, and gradient of input
+            # write quant. gradient of weight, and gradient of input
             write_backward.append(sum(new_write))
-            write_backward.append(sum(new_write)*4)
+            write_backward_act_grad.append(new_write[0])
+            write_backward_weight_grad.append(new_write[1])
 
         for new_comp in flops[-1::-1]:
             flops_backward.append(2*new_comp)
 
         print('read(B):',sum(read_forward+read_backward))
+        print('read_forward_act(B):',sum(read_forward_act))
+        print('read_forward_weight(B):',sum(read_forward_weight))
+        print('read_backward_act(B):',sum(read_backward_act))
+        print('read_backward_act_grad(B):',sum(read_backward_act_grad))
+        print('read_backward_weight(B):',sum(read_backward_weight))
+
         print('write(B):',sum(write_forward+write_backward))
+        print('write_forward_act(B):',sum(write_forward_act))
+        print('write_backward_act_grad(B):',sum(write_backward_act_grad))
+        print('write_backward_weight_grad(B):',sum(write_backward_weight_grad))
+
+
         print('FLOPs(B):',sum(flops_forward+flops_backward))
+
         print('Peakmem(B):',max(memory_forward+memory_backward))
+        print('memory_forward_act(B):',max(memory_forward_act))
+        print('memory_forward_weight(B):',max(memory_forward_weight))
+        print('memory_backward_act(B):',max(memory_backward_act))
 
 
         return read_forward,write_forward,flops_forward,memory_forward,read_backward[-1::-1],write_backward[-1::-1],flops_backward[-1::-1],memory_backward[-1::-1]
@@ -148,57 +248,117 @@ class policy:
 
         # compute forward step
         read_forward = []
+        read_forward_act = []
+        read_forward_weight = []
+
         write_forward = []
+        write_forward_act = []
+
         flops_forward = []
+
+
         memory_forward = [sum(weight)] # base memory is all the weights
+        memory_forward_act = [0] # base memory is all the weights
+        memory_forward_weight = [sum(weight)] # base memory is all the weights
+
+
         act = [i*batch_size for i in act]
         flops = [i*batch_size for i in flops]
         inp = [i*batch_size for i in inp]
+
         for new_act in act:
             memory_forward.append(memory_forward[-1]+new_act)
+            memory_forward_act.append(memory_forward_act[-1]+new_act)
+
         for new_read in zip(weight,inp):
             # read input, read weight
             read_forward.append(sum(new_read))
+            read_forward_weight.append(new_read[0])
+            read_forward_act.append(new_read[1])
+
         for new_write in act:
             # write output
             write_forward.append(new_write)
+            write_forward_act.append(new_write)
+
         for new_comp in flops:
             flops_forward.append(new_comp)
 
         memory_forward = memory_forward[1::]
         # compute backward step
         read_backward = []
+        read_backward_act = []
+        read_backward_act_grad = []
+        read_backward_weight = []
+
         write_backward = []
+        write_backward_act_grad = []
+        write_backward_weight_grad = []
+
         flops_backward = []
+
         memory_backward = [memory_forward[-1]] # base memory is from all the activations are stored
+        memory_backward_act = [memory_forward_act[-1]] # base memory is from all the activations are stored
+
         for used_act in act[-1::-1]:
             memory_backward.append(memory_backward[-1]-used_act)
+            memory_backward_act.append(memory_backward_act[-1]-used_act)
 
         for new_read in zip(act[-1::-1],act[-1::-1],weight[-1::-1],inp[-1::-1]):
             # read gradient of output, weight, and input
             read_backward.append(sum(new_read))
+            read_backward_act.append(new_read[3])
+            read_backward_act_grad.append(new_read[0]+new_read[1])
+            read_backward_weight.append(new_read[2])
 
         for new_write in zip(inp[-1::-1],weight[-1::-1]):
             # write gradient of weight, and gradient of input
             write_backward.append(sum(new_write))
+            write_backward_act_grad.append(new_write[0])
+            write_backward_weight_grad.append(new_write[1])
 
         for new_comp in flops[-1::-1]:
             flops_backward.append(2*new_comp)
 
         read_forward = [i*self.batch_size for i in read_forward]
+        read_forward_act = [i*self.batch_size for i in read_forward_act]
+        read_forward_weight = [i*self.batch_size for i in read_forward_weight]
+
+
         read_backward = [i*self.batch_size for i in read_backward]
+        read_backward_act = [i*self.batch_size for i in read_backward_act]
+        read_backward_act_grad = [i*self.batch_size for i in read_backward_act_grad]
+        read_backward_weight = [i*self.batch_size for i in read_backward_weight]
         
         write_forward = [i*self.batch_size for i in write_forward]
+        write_forward_act = [i*self.batch_size for i in write_forward_act]
+
         write_backward = [i*self.batch_size for i in write_backward]
+        write_backward_act_grad = [i*self.batch_size for i in write_backward_act_grad]
+        write_backward_weight_grad = [i*self.batch_size for i in write_backward_weight_grad]
 
         flops_forward = [i*self.batch_size for i in flops_forward]
         flops_backward = [i*self.batch_size for i in flops_backward]
 
 
         print('read(B):',sum(read_forward+read_backward))
+        print('read_forward_act(B):',sum(read_forward_act))
+        print('read_forward_weight(B):',sum(read_forward_weight))
+        print('read_backward_act(B):',sum(read_backward_act))
+        print('read_backward_act_grad(B):',sum(read_backward_act_grad))
+        print('read_backward_weight(B):',sum(read_backward_weight))
+
         print('write(B):',sum(write_forward+write_backward))
+        print('write_forward_act(B):',sum(write_forward_act))
+        print('write_backward_act_grad(B):',sum(write_backward_act_grad))
+        print('write_backward_weight_grad(B):',sum(write_backward_weight_grad))
+
         print('FLOPs(B):',sum(flops_forward+flops_backward))
+
         print('Peakmem(B):',max(memory_forward+memory_backward))
+        print('memory_forward_act(B):',max(memory_forward_act))
+        print('memory_forward_weight(B):',max(memory_forward_weight))
+        print('memory_backward_act(B):',max(memory_backward_act))
 
 
         return read_forward,write_forward,flops_forward,memory_forward,read_backward[-1::-1],write_backward[-1::-1],flops_backward[-1::-1],memory_backward[-1::-1]
@@ -214,9 +374,18 @@ class policy:
 
         # compute forward step
         read_forward = []
+        read_forward_act = []
+        read_forward_weight = []
+
         write_forward = []
+        write_forward_act = []
+
         flops_forward = []
+
         memory_forward = [sum(weight)] # base memory is all the weights
+        memory_forward_act = [0] # base memory is all the weights
+        memory_forward_weight = [sum(weight)] # base memory is all the weights
+
         act = [i*batch_size for i in act]
         flops = [i*batch_size for i in flops]
         inp = [i*batch_size for i in inp]
@@ -233,14 +402,23 @@ class policy:
         for layer_index, new_act in enumerate(act):
             if layer_index in layer_update_weight:
                 memory_forward.append(memory_forward[-1]+new_act)
+                memory_forward_act.append(memory_forward_act[-1]+new_act)
             else:
                 memory_forward.append(memory_forward[-1]+0)
+                memory_forward_act.append(memory_forward_act[-1]+0)
+
+
         for new_read in zip(weight,inp):
             # read input, read weight
             read_forward.append(sum(new_read))
+            read_forward_weight.append(new_read[0])
+            read_forward_act.append(new_read[1])
+
         for layer_index,new_write in enumerate(act):
             # write output
             write_forward.append(new_write)
+            write_forward_act.append(new_write)
+
 
         for new_comp in flops:
             flops_forward.append(new_comp)
@@ -248,35 +426,59 @@ class policy:
         memory_forward = memory_forward[1::]
         # compute backward step
         read_backward = []
+        read_backward_act = []
+        read_backward_act_grad = []
+        read_backward_weight = []
+
         write_backward = []
+        write_backward_act_grad = []
+        write_backward_weight_grad = []
+
         flops_backward = []
+
         memory_backward = [memory_forward[-1]] # base memory is from all the activations are stored
+        memory_backward_act = [memory_forward_act[-1]] # base memory is from all the activations are stored
+
         for layer_index in range(len(act))[-1::-1]:
             used_act = act[layer_index]
             if layer_index in layer_update_weight:
                 memory_backward.append(memory_backward[-1]-used_act)
+                memory_backward_act.append(memory_backward_act[-1]-used_act)
             else:
                 memory_backward.append(memory_backward[-1]-0)
-
+                memory_backward_act.append(memory_backward_act[-1]-0)
 
         for layer_index in range(len(act))[-1::-1]:
             new_read = [act[layer_index],act[layer_index],weight[layer_index],inp[layer_index]]
             if layer_index in layer_update_weight:
                 # read gradient of output, weight, and input
                 read_backward.append(sum(new_read))
+                read_backward_act.append(new_read[3])
+                read_backward_act_grad.append(new_read[0]+new_read[1])
+                read_backward_weight.append(new_read[2])
             else:
                 read_backward.append(new_read[0]+new_read[2])
+                read_backward_act.append(0)
+                read_backward_act_grad.append(new_read[0])
+                read_backward_weight.append(new_read[2])
+
 
         for layer_index in range(len(inp))[-1::-1]:
             new_write = [inp[layer_index],weight[layer_index]]
             if layer_index in layer_update_weight:
                 # write gradient of weight, and gradient of input
                 write_backward.append(sum(new_write))
+                write_backward_act_grad.append(new_write[0])
+                write_backward_weight_grad.append(new_write[1])
             elif layer_index in layer_input_gradient:
                 write_backward.append(new_write[0])
+                write_backward_act_grad.append(new_write[0])
+                write_backward_weight_grad.append(0)
             else:
                 # only when the bias updating is in consecutive layers.
                 write_backward.append(0)
+                write_backward_act_grad.append(0)
+                write_backward_weight_grad.append(0)
 
         for layer_index in range(len(flops))[-1::-1]:
             new_comp = flops[layer_index]
@@ -288,9 +490,25 @@ class policy:
                 flops_backward.append(0)
 
         print('read(B):',sum(read_forward+read_backward))
+        print('read_forward_act(B):',sum(read_forward_act))
+        print('read_forward_weight(B):',sum(read_forward_weight))
+        print('read_backward_act(B):',sum(read_backward_act))
+        print('read_backward_act_grad(B):',sum(read_backward_act_grad))
+        print('read_backward_weight(B):',sum(read_backward_weight))
+
         print('write(B):',sum(write_forward+write_backward))
+        print('write_forward_act(B):',sum(write_forward_act))
+        print('write_backward_act_grad(B):',sum(write_backward_act_grad))
+        print('write_backward_weight_grad(B):',sum(write_backward_weight_grad))
+
+
         print('FLOPs(B):',sum(flops_forward+flops_backward))
+
         print('Peakmem(B):',max(memory_forward+memory_backward))
+        print('memory_forward_act(B):',max(memory_forward_act))
+        print('memory_forward_weight(B):',max(memory_forward_weight))
+        print('memory_backward_act(B):',max(memory_backward_act))
+
 
 
         return read_forward,write_forward,flops_forward,memory_forward,read_backward[-1::-1],write_backward[-1::-1],flops_backward[-1::-1],memory_backward[-1::-1]
@@ -309,9 +527,18 @@ class policy:
 
         # compute forward step
         read_forward = []
+        read_forward_act = []
+        read_forward_weight = []
+
         write_forward = []
+        write_forward_act = []
+
         flops_forward = []
+
         memory_forward = [sum(weight)+sum(weight_side)] # base memory is all the weights and side weights
+        memory_forward_act = [0] # base memory is all the weights
+        memory_forward_weight = [sum(weight)+sum(weight_side)] # base memory is all the weights
+        
         act = [i*batch_size for i in act]
         flops = [i*batch_size for i in flops]
         inp = [i*batch_size for i in inp]
@@ -327,11 +554,16 @@ class policy:
         for layer_index, new_act in enumerate(act):
             if layer_index in layer_update_weight:
                 memory_forward.append(memory_forward[-1]+new_act)
+                memory_forward_act.append(memory_forward_act[-1]+new_act)
             else:
                 memory_forward.append(memory_forward[-1]+0)
+                memory_forward_act.append(memory_forward_act[-1]+0)
+
             #specific: save low act. for side tuning of 2 conv
             if layer_index in block_start_layer:
                 memory_forward[-1] += new_act/4*2
+                memory_forward_act[-1] += new_act/4*2
+
 
 
         side_index = 0
@@ -339,19 +571,27 @@ class policy:
             new_read = [weight[layer_index],inp[layer_index]]
             # read input, read weight
             read_forward.append(sum(new_read))
+            read_forward_weight.append(new_read[0])
+            read_forward_act.append(new_read[1])
+
             if layer_index in block_start_layer:
                 # read downsampled input twice, read weight
                 read_forward.append(weight_side[side_index]+inp[layer_index]/4*2)
+                read_forward_weight.append(weight_side[side_index])
+                read_forward_act.append(inp[layer_index]/4*2)
+
                 side_index += 1
 
 
         for layer_index,new_write in enumerate(act):
             # write output
             write_forward.append(new_write)
-
+            write_forward_act.append(new_write)
             if layer_index in block_start_layer:
                 # write intermidiate activations of two conv layers. The size is equal to input
                 write_forward.append(inp[layer_index]/4*2)
+                write_forward_act.append(inp[layer_index]/4*2)
+
         
         side_index = 0
         for layer_index,new_comp in enumerate(flops):
@@ -366,15 +606,25 @@ class policy:
         memory_forward = memory_forward[1::]
         # compute backward step
         read_backward = []
+        read_backward_act = []
+        read_backward_act_grad = []
+        read_backward_weight = []
+
         write_backward = []
+        write_backward_act_grad = []
+        write_backward_weight_grad = []
+
         flops_backward = []
+
         memory_backward = [memory_forward[-1]] # base memory is from all the activations are stored
+
         for layer_index in range(len(act))[-1::-1]:
             used_act = act[layer_index]
             if layer_index in layer_update_weight:
                 memory_backward.append(memory_backward[-1]-used_act)
             else:
                 memory_backward.append(memory_backward[-1]-0)
+
             #specific: save low act. for side tuning of 2 conv
             if layer_index in block_start_layer:
                 memory_backward[-1] -= new_act/4*2
@@ -386,14 +636,25 @@ class policy:
             if layer_index in layer_update_weight:
                 # read gradient of output, weight, and input
                 read_backward.append(sum(new_read))
+                read_backward_act.append(new_read[3])
+                read_backward_act_grad.append(new_read[0]+new_read[1])
+                read_backward_weight.append(new_read[2])
             else:
                 read_backward.append(new_read[0]+new_read[2])
+                read_backward_act.append(0)
+                read_backward_act_grad.append(new_read[0])
+                read_backward_weight.append(new_read[2])
             # read input of 2, weight of 2 and gradient of output of 2.
             if layer_index in block_start_layer:
                 # update side channel needs to read
                 new_read_side_channel_1x1 = inp[layer_index]/4 + inp[layer_index]/4 + weight_side[side_index] + inp[layer_index]/4
                 new_read_side_channel_3x3 = inp[layer_index]/4 + inp[layer_index]/4 + inp[layer_index]/4
                 read_backward.append(new_read_side_channel_1x1+new_read_side_channel_3x3)
+                
+                read_backward_act.append(inp[layer_index]/4 + inp[layer_index]/4)
+                read_backward_act_grad.append(inp[layer_index]/4 + inp[layer_index]/4 +inp[layer_index]/4 + inp[layer_index]/4)
+                read_backward_weight.append(weight_side[side_index])
+
                 side_index -= 1
 
 
@@ -404,16 +665,25 @@ class policy:
             if layer_index in layer_update_weight:
                 # write gradient of weight, and gradient of input
                 write_backward.append(sum(new_write))
+                write_backward_act_grad.append(new_write[0])
+                write_backward_weight_grad.append(new_write[1])
+
             elif layer_index in layer_input_gradient:
                 write_backward.append(new_write[0])
+                write_backward_act_grad.append(new_write[0])
+                write_backward_weight_grad.append(0)
             else:
                 write_backward.append(0)
+                write_backward_act_grad.append(0)
+                write_backward_weight_grad.append(0)
             
             # write gradient of weights, gradient of input
             if layer_index in block_start_layer:
                 new_write_side_channel_1x1 = weight_side[side_index] + inp[layer_index]/4
                 new_write_side_channel_3x3 = inp[layer_index]/4
                 write_backward.append(new_write_side_channel_1x1+new_write_side_channel_3x3)
+                write_backward_act_grad.append(inp[layer_index]/4 + inp[layer_index]/4)
+                write_backward_weight_grad.append(weight_side[side_index] )
                 side_index -= 1
 
         side_index = len(weight_side)-1
@@ -431,10 +701,24 @@ class policy:
                 side_index -= 1
 
         print('read(B):',sum(read_forward+read_backward))
+        print('read_forward_act(B):',sum(read_forward_act))
+        print('read_forward_weight(B):',sum(read_forward_weight))
+        print('read_backward_act(B):',sum(read_backward_act))
+        print('read_backward_act_grad(B):',sum(read_backward_act_grad))
+        print('read_backward_weight(B):',sum(read_backward_weight))
+
         print('write(B):',sum(write_forward+write_backward))
+        print('write_forward_act(B):',sum(write_forward_act))
+        print('write_backward_act_grad(B):',sum(write_backward_act_grad))
+        print('write_backward_weight_grad(B):',sum(write_backward_weight_grad))
+
+
         print('FLOPs(B):',sum(flops_forward+flops_backward))
+
         print('Peakmem(B):',max(memory_forward+memory_backward))
-    
+        print('memory_forward_act(B):',max(memory_forward_act))
+        print('memory_forward_weight(B):',max(memory_forward_weight))
+
         return read_forward,write_forward,flops_forward,memory_forward,read_backward[-1::-1],write_backward[-1::-1],flops_backward[-1::-1],memory_backward[-1::-1]
 
 
@@ -450,9 +734,19 @@ class policy:
 
         # compute forward step
         read_forward = []
+        read_forward_act = []
+        read_forward_weight = []
+
         write_forward = []
+        write_forward_act = []
+
         flops_forward = []
+
+        
         memory_forward = [sum(weight)] # base memory is all the weights
+        memory_forward_act = [0] # base memory is all the weights
+        memory_forward_weight = [sum(weight)] # base memory is all the weights
+
         act = [i*batch_size for i in act]
         flops = [i*batch_size for i in flops]
         inp = [i*batch_size for i in inp]
@@ -461,15 +755,24 @@ class policy:
         for layer_idx, new_act in enumerate(act):
             if layer_idx != max(block_end_layer):
                 memory_forward.append(memory_forward[-1]+0)
+                memory_forward_act.append(memory_forward_act[-1]+0)
+
             else:
                 memory_forward.append(memory_forward[-1]+new_act)
+                memory_forward_act.append(memory_forward_act[-1]+new_act)
+
 
         for new_read in zip(weight,act):
             # read input, read weight
             read_forward.append(sum(new_read))
+            read_forward_weight.append(new_read[0])
+            read_forward_act.append(new_read[1])
+
         for new_write in act:
             # write output
             write_forward.append(new_write)
+            write_forward_act.append(new_write)
+
         for new_comp in flops:
             flops_forward.append(new_comp)
 
@@ -477,20 +780,35 @@ class policy:
         memory_forward = memory_forward[1::]
         # compute backward step
         read_backward = []
+        read_backward_act = []
+        read_backward_act_grad = []
+        read_backward_weight = []
+        
         write_backward = []
+        write_backward_act = []
+        write_backward_act_grad = []
+        write_backward_weight_grad = []
+
         flops_backward = []
+        
         memory_backward = [memory_forward[-1]] # base memory is from all the activations are stored
+        memory_backward_act = [memory_forward_act[-1]] # base memory is from all the activations are stored
+
         for layer_index in range(len(act))[-1::-1]:
             if layer_index in block_end_layer:
                 new_act = sum(act[block_end_layer[block_end_layer.index(layer_index)-1]:layer_index])
 
                 memory_backward.append(memory_backward[-1]+new_act-act[layer_index])
+                memory_backward_act.append(memory_backward_act[-1]+new_act-act[layer_index])
+
                 # print([round(x) for x in act[block_end_layer[block_end_layer.index(layer_index)-1]:layer_index]],layer_index,memory_backward[-1])
 
 
             elif layer_index<max(block_end_layer):
                 memory_backward.append(memory_backward[-1]-act[layer_index])
                 # print(act[layer_index],layer_index,memory_backward[-1])
+                memory_backward_act.append(memory_backward_act[-1]-act[layer_index])
+
 
         for new_read in zip(act[-1::-1],act[-1::-1],weight[-1::-1],inp[-1::-1]):
             # the activations and weight are read once again to compute
@@ -498,19 +816,46 @@ class policy:
             # read gradient of output, weight, and input
             read_backward.append(sum(new_read))
 
+            read_backward_act.append(new_read[3]*2)
+            read_backward_act_grad.append(new_read[0]+new_read[1])
+            read_backward_weight.append(new_read[2]*2)
+
 
 
         for new_write in zip(act[-1::-1],inp[-1::-1],weight[-1::-1]):
             # write gradient of weight, and gradient of input, also recompute the activations
             write_backward.append(sum(new_write))
+            write_backward_act_grad.append(new_write[1])
+            write_backward_act.append(new_write[0])
+            write_backward_weight_grad.append(new_write[2])
+
 
         for new_comp in flops[-1::-1]:
             flops_backward.append(3*new_comp)
 
         print('read(B):',sum(read_forward+read_backward))
+        print('read_forward_act(B):',sum(read_forward_act))
+        print('read_forward_weight(B):',sum(read_forward_weight))
+        print('read_backward_act(B):',sum(read_backward_act))
+        print('read_backward_act_grad(B):',sum(read_backward_act_grad))
+        print('read_backward_weight(B):',sum(read_backward_weight))
+
         print('write(B):',sum(write_forward+write_backward))
+        print('write_forward_act(B):',sum(write_forward_act))
+        print('write_backward_act(B):',sum(write_backward_act))
+        print('write_backward_act_grad(B):',sum(write_backward_act_grad))
+        print('write_backward_weight_grad(B):',sum(write_backward_weight_grad))
+
+
         print('FLOPs(B):',sum(flops_forward+flops_backward))
+        print('FLOPs_forward(B):',sum(flops_forward))
+        print('FLOPs_backward(B):',sum(flops_backward))
+
         print('Peakmem(B):',max(memory_forward+memory_backward))
+        print('memory_forward_act(B):',max(memory_forward_act))
+        print('memory_forward_weight(B):',max(memory_forward_weight))
+        print('memory_backward_act(B):',max(memory_backward_act))
+
     
         return read_forward,write_forward,flops_forward,memory_forward,read_backward[-1::-1],write_backward[-1::-1],flops_backward[-1::-1],memory_backward[-1::-1]
 
@@ -585,9 +930,18 @@ class policy:
 
         # compute forward step
         read_forward = []
+        read_forward_act = []
+        read_forward_weight = []
+
         write_forward = []
+        write_forward_act = []
+
         flops_forward = []
+
         memory_forward = [sum(weight)] # base memory is all the weights
+        memory_forward_act = [0] # base memory is all the weights
+        memory_forward_weight = [sum(weight)] # base memory is all the weights
+
         act = [i*batch_size for i in act]
         flops = [i*batch_size for i in flops]
         inp = [i*batch_size for i in inp]
@@ -604,14 +958,23 @@ class policy:
         for layer_index, new_act in enumerate(act):
             if layer_index in layer_update_weight:
                 memory_forward.append(memory_forward[-1]+new_act)
+                memory_forward_act.append(memory_forward_act[-1]+new_act)
+
             else:
                 memory_forward.append(memory_forward[-1]+0)
+                memory_forward_act.append(memory_forward_act[-1]+0)
+
         for new_read in zip(weight,inp):
             # read input, read weight
             read_forward.append(sum(new_read))
+            read_forward_weight.append(new_read[0])
+            read_forward_act.append(new_read[1])
+
         for layer_index,new_write in enumerate(act):
             # write output
             write_forward.append(new_write)
+            write_forward_act.append(new_write)
+
 
         for new_comp in flops:
             flops_forward.append(new_comp)
@@ -619,15 +982,27 @@ class policy:
         memory_forward = memory_forward[1::]
         # compute backward step
         read_backward = []
+        read_backward_act = []
+        read_backward_act_grad = []
+        read_backward_weight = []
+
         write_backward = []
+        write_backward_act_grad = []
+        write_backward_weight_grad = []
+
         flops_backward = []
+
         memory_backward = [memory_forward[-1]] # base memory is from all the activations are stored
+        memory_backward_act = [memory_forward_act[-1]] # base memory is from all the activations are stored
+
         for layer_index in range(len(act))[-1::-1]:
             used_act = act[layer_index]
             if layer_index in layer_update_weight:
                 memory_backward.append(memory_backward[-1]-used_act)
+                memory_backward_act.append(memory_backward_act[-1]-used_act)
             else:
                 memory_backward.append(memory_backward[-1]-0)
+                memory_backward_act.append(memory_backward_act[-1]-0)
 
 
 
@@ -636,19 +1011,32 @@ class policy:
             if layer_index in layer_update_weight:
                 # read gradient of output, weight, and input
                 read_backward.append(sum(new_read))
+                read_backward_act.append(new_read[3])
+                read_backward_act_grad.append(new_read[0]+new_read[1])
+                read_backward_weight.append(new_read[2])
             else:
                 read_backward.append(new_read[0]+new_read[2])
+                read_backward_act.append(0)
+                read_backward_act_grad.append(new_read[0])
+                read_backward_weight.append(new_read[2])
+
 
         for layer_index in range(len(inp))[-1::-1]:
             new_write = [inp[layer_index],weight[layer_index]]
             if layer_index in layer_update_weight:
                 # write gradient of weight, and gradient of input
                 write_backward.append(sum(new_write))
+                write_backward_act_grad.append(new_write[0])
+                write_backward_weight_grad.append(new_write[1])
             elif layer_index in layer_input_gradient:
                 write_backward.append(new_write[0])
+                write_backward_act_grad.append(new_write[0])
+                write_backward_weight_grad.append(0)
             else:
                 # only when the bias updating is in consecutive layers.
                 write_backward.append(0)
+                write_backward_act_grad.append(0)
+                write_backward_weight_grad.append(0)
 
         for layer_index in range(len(flops))[-1::-1]:
             new_comp = flops[layer_index]
@@ -660,9 +1048,25 @@ class policy:
                 flops_backward.append(0)
 
         print('read(B):',sum(read_forward+read_backward))
+        print('read_forward_act(B):',sum(read_forward_act))
+        print('read_forward_weight(B):',sum(read_forward_weight))
+        print('read_backward_act(B):',sum(read_backward_act))
+        print('read_backward_act_grad(B):',sum(read_backward_act_grad))
+        print('read_backward_weight(B):',sum(read_backward_weight))
+
         print('write(B):',sum(write_forward+write_backward))
+        print('write_forward_act(B):',sum(write_forward_act))
+        print('write_backward_act_grad(B):',sum(write_backward_act_grad))
+        print('write_backward_weight_grad(B):',sum(write_backward_weight_grad))
+
+
         print('FLOPs(B):',sum(flops_forward+flops_backward))
+
         print('Peakmem(B):',max(memory_forward+memory_backward))
+        print('memory_forward_act(B):',max(memory_forward_act))
+        print('memory_forward_weight(B):',max(memory_forward_weight))
+        print('memory_backward_act(B):',max(memory_backward_act))
+
 
 
         return read_forward,write_forward,flops_forward,memory_forward,read_backward[-1::-1],write_backward[-1::-1],flops_backward[-1::-1],memory_backward[-1::-1]
