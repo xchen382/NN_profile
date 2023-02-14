@@ -1,3 +1,6 @@
+# NN_profile
+This project helps analyze the read, write, flops and peak memory of training Mobilenet-V2 through fine-tuning or training from scratch using various existing policies. We give layer by layer results as well as results for weight, activations, and gradient in forward and backward step. The following is the readme from orginal mobilenet-v2 git.
+
 # A PyTorch implementation of MobileNetV2
 
 This is a PyTorch implementation of MobileNetV2 architecture as described in the paper [Inverted Residuals and Linear Bottlenecks: Mobile Networks for Classification, Detection and Segmentation](https://arxiv.org/pdf/1801.04381).
