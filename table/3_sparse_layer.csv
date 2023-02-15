@@ -1,106 +1,289 @@
 Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_peakmem,b_read,b_write,b_flops,b_peakmem
-0,"Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)",3456,602112,1605632,38538624,102760448,693633024,14019488,102763904,0,0,14019488
-1,"BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",256,1605632,1605632,102760704,102760448,128450560,14019488,102760704,0,0,14019488
-2,"Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)",1152,1605632,1605632,102761600,102760448,231211008,14019488,102761600,0,0,14019488
-3,"BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",256,1605632,1605632,102760704,102760448,128450560,14019488,102760704,0,0,14019488
-4,"Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)",2048,1605632,802816,102762496,51380224,411041792,14019488,51382272,0,0,14019488
-5,"BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",128,802816,802816,51380352,51380224,64225280,14019488,51380352,0,0,14019488
-6,"Conv2d(16, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)",6144,802816,4816896,51386368,308281344,1233125376,14019488,308287488,0,0,14019488
-7,"BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",768,4816896,4816896,308282112,308281344,385351680,14019488,308282112,0,0,14019488
-8,"Conv2d(96, 96, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=96, bias=False)",3456,4816896,1204224,308284800,77070336,173408256,14019488,77073792,0,0,14019488
-9,"BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",768,1204224,1204224,77071104,77070336,96337920,14019488,77071104,0,0,14019488
-10,"Conv2d(96, 24, kernel_size=(1, 1), stride=(1, 1), bias=False)",9216,1204224,301056,77079552,19267584,462422016,14019488,19276800,0,0,14019488
-11,"BatchNorm2d(24, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",192,301056,301056,19267776,19267584,24084480,14019488,19267776,0,0,14019488
-12,"Conv2d(24, 144, kernel_size=(1, 1), stride=(1, 1), bias=False)",13824,301056,1806336,19281408,115605504,693633024,14019488,115619328,0,0,14019488
-13,"BatchNorm2d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1152,1806336,1806336,115606656,115605504,144506880,14019488,115606656,0,0,14019488
-14,"Conv2d(144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=144, bias=False)",5184,1806336,1806336,115610688,115605504,260112384,14019488,115610688,0,0,14019488
-15,"BatchNorm2d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1152,1806336,1806336,115606656,115605504,144506880,14019488,115606656,0,0,14019488
-16,"Conv2d(144, 24, kernel_size=(1, 1), stride=(1, 1), bias=False)",13824,1806336,301056,115619328,19267584,693633024,14019488,19281408,0,0,14019488
-17,"BatchNorm2d(24, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",192,301056,301056,19267776,19267584,24084480,14019488,19267776,0,0,14019488
-18,"Conv2d(24, 144, kernel_size=(1, 1), stride=(1, 1), bias=False)",13824,301056,1806336,19281408,115605504,693633024,14019488,115619328,0,0,14019488
-19,"BatchNorm2d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1152,1806336,1806336,115606656,115605504,144506880,14019488,115606656,0,0,14019488
-20,"Conv2d(144, 144, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=144, bias=False)",5184,1806336,451584,115610688,28901376,65028096,14019488,28906560,0,0,14019488
-21,"BatchNorm2d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1152,451584,451584,28902528,28901376,36126720,14019488,28902528,0,0,14019488
-22,"Conv2d(144, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)",18432,451584,100352,28919808,6422528,231211008,14019488,6440960,0,0,14019488
-23,"BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",256,100352,100352,6422784,6422528,8028160,14019488,6422784,0,0,14019488
-24,"Conv2d(32, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)",24576,100352,602112,6447104,38535168,308281344,14019488,38559744,0,0,14019488
-25,"BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1536,602112,602112,38536704,38535168,48168960,14019488,38536704,0,0,14019488
-26,"Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192, bias=False)",6912,602112,602112,38542080,38535168,86704128,14019488,38542080,0,0,14019488
-27,"BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1536,602112,602112,38536704,38535168,48168960,14019488,38536704,0,0,14019488
-28,"Conv2d(192, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)",24576,602112,100352,38559744,6422528,308281344,14019488,6447104,0,0,14019488
-29,"BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",256,100352,100352,6422784,6422528,8028160,14019488,6422784,0,0,14019488
-30,"Conv2d(32, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)",24576,100352,602112,6447104,38535168,308281344,14019488,38559744,0,0,14019488
-31,"BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1536,602112,602112,38536704,38535168,48168960,14019488,38536704,0,0,14019488
-32,"Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192, bias=False)",6912,602112,602112,38542080,38535168,86704128,14019488,38542080,0,0,14019488
-33,"BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1536,602112,602112,38536704,38535168,48168960,14019488,38536704,0,0,14019488
-34,"Conv2d(192, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)",24576,602112,100352,38559744,6422528,308281344,14019488,6447104,0,0,14019488
-35,"BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",256,100352,100352,6422784,6422528,8028160,14019488,6422784,0,0,14019488
-36,"Conv2d(32, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)",24576,100352,602112,6447104,38535168,308281344,14019488,38559744,0,0,14019488
-37,"BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1536,602112,602112,38536704,38535168,48168960,14019488,38536704,0,0,14019488
-38,"Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=192, bias=False)",6912,602112,150528,38542080,9633792,21676032,14019488,9640704,0,0,14019488
-39,"BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1536,150528,150528,9635328,9633792,12042240,14019488,9635328,0,0,14019488
-40,"Conv2d(192, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)",49152,150528,50176,9682944,3211264,154140672,14019488,3260416,0,0,14019488
-41,"BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",512,50176,50176,3211776,3211264,4014080,14019488,3211776,0,0,14019488
-42,"Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)",98304,50176,301056,3309568,19267584,308281344,14019488,19365888,0,0,14019488
-43,"BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",3072,301056,301056,19270656,19267584,24084480,14019488,19270656,0,0,14019488
-44,"Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)",13824,301056,301056,19281408,19267584,43352064,14019488,19281408,0,0,14019488
-45,"BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",3072,301056,301056,19270656,19267584,24084480,14019488,19270656,0,0,14019488
-46,"Conv2d(384, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)",98304,301056,50176,19365888,3211264,308281344,17230752,25788416,19365888,616562688,14019488
-47,"BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",512,50176,50176,3211776,3211264,4014080,17230752,3211776,3211264,4014080,17230752
-48,"Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)",98304,50176,301056,3309568,19267584,308281344,17230752,19365888,3211264,308281344,17230752
-49,"BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",3072,301056,301056,19270656,19267584,24084480,17230752,19270656,19267584,24084480,17230752
-50,"Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)",13824,301056,301056,19281408,19267584,43352064,36498336,57816576,19281408,86704128,17230752
-51,"BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",3072,301056,301056,19270656,19267584,24084480,36498336,19270656,19267584,24084480,36498336
-52,"Conv2d(384, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)",98304,301056,50176,19365888,3211264,308281344,36498336,3309568,19267584,308281344,36498336
-53,"BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",512,50176,50176,3211776,3211264,4014080,36498336,3211776,3211264,4014080,36498336
-54,"Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)",98304,50176,301056,3309568,19267584,308281344,36498336,19365888,3211264,308281344,36498336
-55,"BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",3072,301056,301056,19270656,19267584,24084480,36498336,19270656,19267584,24084480,36498336
-56,"Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)",13824,301056,301056,19281408,19267584,43352064,36498336,19281408,19267584,43352064,36498336
-57,"BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",3072,301056,301056,19270656,19267584,24084480,36498336,19270656,19267584,24084480,36498336
-58,"Conv2d(384, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)",98304,301056,50176,19365888,3211264,308281344,39709600,25788416,19365888,616562688,36498336
-59,"BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",512,50176,50176,3211776,3211264,4014080,39709600,3211776,3211264,4014080,39709600
-60,"Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)",98304,50176,301056,3309568,19267584,308281344,39709600,19365888,3211264,308281344,39709600
-61,"BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",3072,301056,301056,19270656,19267584,24084480,39709600,19270656,19267584,24084480,39709600
-62,"Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)",13824,301056,301056,19281408,19267584,43352064,39709600,19281408,19267584,43352064,39709600
-63,"BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",3072,301056,301056,19270656,19267584,24084480,39709600,19270656,19267584,24084480,39709600
-64,"Conv2d(384, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)",147456,301056,75264,19415040,4816896,462422016,44526496,29048832,19415040,924844032,39709600
-65,"BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",768,75264,75264,4817664,4816896,6021120,44526496,4817664,4816896,6021120,44526496
-66,"Conv2d(96, 576, kernel_size=(1, 1), stride=(1, 1), bias=False)",221184,75264,451584,5038080,28901376,693633024,44526496,29122560,4816896,693633024,44526496
-67,"BatchNorm2d(576, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",4608,451584,451584,28905984,28901376,36126720,44526496,28905984,28901376,36126720,44526496
-68,"Conv2d(576, 576, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=576, bias=False)",20736,451584,451584,28922112,28901376,65028096,44526496,28922112,28901376,65028096,44526496
-69,"BatchNorm2d(576, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",4608,451584,451584,28905984,28901376,36126720,44526496,28905984,28901376,36126720,44526496
-70,"Conv2d(576, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)",221184,451584,75264,29122560,4816896,693633024,49343392,38756352,29122560,1387266048,44526496
-71,"BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",768,75264,75264,4817664,4816896,6021120,49343392,4817664,4816896,6021120,49343392
-72,"Conv2d(96, 576, kernel_size=(1, 1), stride=(1, 1), bias=False)",221184,75264,451584,5038080,28901376,693633024,49343392,29122560,4816896,693633024,49343392
-73,"BatchNorm2d(576, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",4608,451584,451584,28905984,28901376,36126720,49343392,28905984,28901376,36126720,49343392
-74,"Conv2d(576, 576, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=576, bias=False)",20736,451584,451584,28922112,28901376,65028096,49343392,28922112,28901376,65028096,49343392
-75,"BatchNorm2d(576, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",4608,451584,451584,28905984,28901376,36126720,49343392,28905984,28901376,36126720,49343392
-76,"Conv2d(576, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)",221184,451584,75264,29122560,4816896,693633024,54160288,38756352,29122560,1387266048,49343392
-77,"BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",768,75264,75264,4817664,4816896,6021120,54160288,4817664,4816896,6021120,54160288
-78,"Conv2d(96, 576, kernel_size=(1, 1), stride=(1, 1), bias=False)",221184,75264,451584,5038080,28901376,693633024,54160288,29122560,4816896,693633024,54160288
-79,"BatchNorm2d(576, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",4608,451584,451584,28905984,28901376,36126720,54160288,28905984,28901376,36126720,54160288
-80,"Conv2d(576, 576, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=576, bias=False)",20736,451584,112896,28922112,7225344,16257024,54160288,7246080,28901376,16257024,54160288
-81,"BatchNorm2d(576, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",4608,112896,112896,7229952,7225344,9031680,54160288,7229952,7225344,9031680,54160288
-82,"Conv2d(576, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)",368640,112896,31360,7593984,2007040,289013760,54160288,2375680,7225344,289013760,54160288
-83,"BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1280,31360,31360,2008320,2007040,2508800,54160288,2008320,2007040,2508800,54160288
-84,"Conv2d(160, 960, kernel_size=(1, 1), stride=(1, 1), bias=False)",614400,31360,188160,2621440,12042240,481689600,54160288,12656640,2007040,481689600,54160288
-85,"BatchNorm2d(960, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",7680,188160,188160,12049920,12042240,15052800,54160288,12049920,12042240,15052800,54160288
-86,"Conv2d(960, 960, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=960, bias=False)",34560,188160,188160,12076800,12042240,27095040,54160288,12076800,12042240,27095040,54160288
-87,"BatchNorm2d(960, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",7680,188160,188160,12049920,12042240,15052800,54160288,12049920,12042240,15052800,54160288
-88,"Conv2d(960, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)",614400,188160,31360,12656640,2007040,481689600,56167328,16670720,12656640,963379200,54160288
-89,"BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1280,31360,31360,2008320,2007040,2508800,56167328,2008320,2007040,2508800,56167328
-90,"Conv2d(160, 960, kernel_size=(1, 1), stride=(1, 1), bias=False)",614400,31360,188160,2621440,12042240,481689600,56167328,12656640,2007040,481689600,56167328
-91,"BatchNorm2d(960, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",7680,188160,188160,12049920,12042240,15052800,56167328,12049920,12042240,15052800,56167328
-92,"Conv2d(960, 960, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=960, bias=False)",34560,188160,188160,12076800,12042240,27095040,56167328,12076800,12042240,27095040,56167328
-93,"BatchNorm2d(960, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",7680,188160,188160,12049920,12042240,15052800,56167328,12049920,12042240,15052800,56167328
-94,"Conv2d(960, 160, kernel_size=(1, 1), stride=(1, 1), bias=False)",614400,188160,31360,12656640,2007040,481689600,58174368,16670720,12656640,963379200,56167328
-95,"BatchNorm2d(160, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",1280,31360,31360,2008320,2007040,2508800,58174368,2008320,2007040,2508800,58174368
-96,"Conv2d(160, 960, kernel_size=(1, 1), stride=(1, 1), bias=False)",614400,31360,188160,2621440,12042240,481689600,58174368,12656640,2007040,481689600,58174368
-97,"BatchNorm2d(960, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",7680,188160,188160,12049920,12042240,15052800,58174368,12049920,12042240,15052800,58174368
-98,"Conv2d(960, 960, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=960, bias=False)",34560,188160,188160,12076800,12042240,27095040,58174368,12076800,12042240,27095040,58174368
-99,"BatchNorm2d(960, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",7680,188160,188160,12049920,12042240,15052800,58174368,12049920,12042240,15052800,58174368
-100,"Conv2d(960, 320, kernel_size=(1, 1), stride=(1, 1), bias=False)",1228800,188160,62720,13271040,4014080,963379200,58174368,5242880,12042240,963379200,58174368
-101,"BatchNorm2d(320, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",2560,62720,62720,4016640,4014080,5017600,58174368,4016640,4014080,5017600,58174368
-102,"Conv2d(320, 1280, kernel_size=(1, 1), stride=(1, 1), bias=False)",1638400,62720,250880,5652480,16056320,1284505600,58174368,17694720,4014080,1284505600,58174368
-103,"BatchNorm2d(1280, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)",10240,250880,250880,16066560,16056320,20070400,74230688,48179200,16066560,40140800,58174368
-104,"Linear(in_features=1280, out_features=1000, bias=True)",5124000,5120,4000,5451680,256000,81920000,74486688,5963680,5451680,163840000,74230688
+0,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+1,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+2,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+3,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+4,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+5,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+6,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+7,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+8,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+9,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,340217856,129014784,0,0,340217856
+10,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,440881152,330341376,129014784,515899392000,340217856
+11,"BertLayer(
+  (attention): BertAttention(
+    (self): BertSelfAttention(
+      (query): Linear(in_features=768, out_features=768, bias=True)
+      (key): Linear(in_features=768, out_features=768, bias=True)
+      (value): Linear(in_features=768, out_features=768, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (output): BertSelfOutput(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (intermediate): BertIntermediate(
+    (dense): Linear(in_features=768, out_features=3072, bias=True)
+    (intermediate_act_fn): GELUActivation()
+  )
+  (output): BertOutput(
+    (dense): Linear(in_features=3072, out_features=768, bias=True)
+    (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+)",28351488,1572864,1572864,129014784,100663296,257949696000,541544448,330341376,129014784,515899392000,440881152

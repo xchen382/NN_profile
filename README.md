@@ -7,6 +7,14 @@ This is a PyTorch implementation of MobileNetV2 architecture as described in the
 
 <u>**[NEW]** Add the code to automatically download the pre-trained weights.</u>
 
+<u>**[NEW]** We add HuggingFace Bert Base model (Transformer).</u>
+
+## Requirement
+
+1. Pytorch
+2. Transformers
+3. fvcore
+
 ## Training Recipe
 
 Recently I have figured out a good training setting:
