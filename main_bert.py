@@ -13,7 +13,7 @@ from utils.write_to_csv import write_scv
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Read/Write/Peakmemory for Bert')
-    parser.add_argument('--policy', default='baseline', type=str, help='Policy to reduce the peakmemory')
+    parser.add_argument('--policy', default='6_sparsegrad', type=str, help='Policy to reduce the peakmemory')
     parser.add_argument('--batch_size', default=64, type=int, help='Batch size')
     parser.add_argument('--sequence_length', default=512, type=int, help='Batch size')
     args = parser.parse_args()

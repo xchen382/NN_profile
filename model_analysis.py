@@ -31,52 +31,86 @@ def model_analysis_bert(x,net):
     print(net)
 
     # features
-    for block_idx,block in enumerate(net.encoder.layer):
-        try:
-            # record start of a block
-            block_start_layer.append(len(weight))
-            # size of weight_size
-            # side_para = side_analysis(x,x.size(1))
-            # weight_side.append(side_para[0])
-            # flops_side.append(side_para[1])
+    for block_idx,block in enumerate(net.encoder.layer): # each block is a attension layer
+    #     try:
+    #         # record start of a block
+    #         block_start_layer.append(len(weight))
+    #         # size of weight_size
+    #         # side_para = side_analysis(x,x.size(1))
+    #         # weight_side.append(side_para[0])
+    #         # flops_side.append(side_para[1])
 
-            for subblock_idx, subblock in enumerate(block):
-                module_name.append(str(subblock))
-                flops.append(FlopCountAnalysis(subblock, x).total())
-                inp.append(x.nelement()*4)
-                x=subblock(x)
-                print('block-'+str(block_idx),'subblock-'+str(subblock_idx),subblock,x.size())
-                weight.append(4*sum([para.nelement() for para in subblock.parameters()]))
-                print(4*sum([para.nelement() for para in subblock.parameters()]),flops[-1])
-                act.append(x.nelement()*4)
-                if isinstance(subblock,nn.Conv2d):
-                    if subblock.kernel_size[0] == 1:
-                        layer_pw.append(len(weight)-1)
-        except:
+    #         # print(block)
+    #         # for subblock_idx, subblock in enumerate(block._module):
+    #         #     print(block_idx)
+            
+            
+            
+            
+            
+            
+    #         for subblock_idx, subblock in enumerate(block):
+    #             module_name.append(str(subblock))
+    #             flops.append(FlopCountAnalysis(subblock, x).total())
+    #             inp.append(x.nelement()*4)
+    #             x=subblock(x)
+    #             print('block-'+str(block_idx),'subblock-'+str(subblock_idx),subblock,x.size())
+    #             weight.append(4*sum([para.nelement() for para in subblock.parameters()]))
+    #             print(4*sum([para.nelement() for para in subblock.parameters()]),flops[-1])
+    #             act.append(x.nelement()*4)
+    #             if isinstance(subblock,nn.Conv2d):
+    #                 if subblock.kernel_size[0] == 1:
+    #                     layer_pw.append(len(weight)-1)
+            
+        
+        
+    #     except:
             #specific: not a residual block
-            block_start_layer.pop()
+            # block_start_layer.pop()
             # weight_side.pop()
             # flops_side.pop()
             
 
-            module_name.append(str(block))
-            flops.append(FlopCountAnalysis(block, x).total())
-            # if isinstance(x, tuple):
-            #     x_ele = x[0]
-            # else:
-            #     x_ele = x
+        module_name.append(str(block))
+        flops.append(FlopCountAnalysis(block, x).total())
+        # if isinstance(x, tuple):
+        #     x_ele = x[0]
+        # else:
+        #     x_ele = x
 
-            inp.append(x.nelement()*4)
-            x=block(x)[0]
-            # if isinstance(x, tuple):
-            #     x_ele = x[0]
-            # else:
-            #     x_ele = x
-            print('block-'+str(block_idx),block,x.size())
-            act.append(x.nelement()*4)
-            # weight.append(subblock.input_channels*out_channels*kernel_size**2)
-            weight.append(4*sum([para.nelement() for para in block.parameters()]))
-            print(4*sum([para.nelement() for para in block.parameters()]),flops[-1])
+        inp.append(x.nelement()*4 * 8)
+
+        # for name, layer in block.named_modules():
+        #     if name == "attention":
+        #         print(layer)
+        #         # three linear layers.
+        #         inp.append(x.nelement()*4)
+        #         act.append(x.nelement()*4)
+        #         inp.append(x.nelement()*4)
+        #         act.append(x.nelement()*4)
+        #         inp.append(x.nelement()*4)
+        #         act.append(x.nelement()*4)
+            
+        #     if name == "intermediate":
+        #         print(layer)
+        #         inp.append(x.nelement()*4)
+        #         act.append(x.nelement()*4 * 4)
+        #     if name == "output":
+        #         print(layer)
+        #         inp.append(x.nelement()*4 * 4)
+        #         act.append(x.nelement()*4)
+
+        x=block(x)[0]
+        # if isinstance(x, tuple):
+        #     x_ele = x[0]
+        # else:
+        #     x_ele = x
+        print('block-'+str(block_idx),block,x.size())
+        act.append(x.nelement()*4 * 8)
+
+        # weight.append(subblock.input_channels*out_channels*kernel_size**2)
+        weight.append(4*sum([para.nelement() for para in block.parameters()]))
+        print(4*sum([para.nelement() for para in block.parameters()]),flops[-1])
 
         # print('block-'+str(block_idx),'parameters(B):'+str((4*x.nelement())))
     # classifier

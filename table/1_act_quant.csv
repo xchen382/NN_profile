@@ -22,7 +22,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,110220288.0,82585344.0,32253696.0,515899392000,85054464.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,286381056.0,611067648.0,208414464.0,515899392000,85054464.0
 1,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -46,7 +46,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,135386112.0,82585344.0,32253696.0,515899392000,110220288.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,487707648.0,611067648.0,208414464.0,515899392000,286381056.0
 2,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -70,7 +70,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,160551936.0,82585344.0,32253696.0,515899392000,135386112.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,689034240.0,611067648.0,208414464.0,515899392000,487707648.0
 3,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -94,7 +94,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,185717760.0,82585344.0,32253696.0,515899392000,160551936.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,890360832.0,611067648.0,208414464.0,515899392000,689034240.0
 4,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -118,7 +118,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,210883584.0,82585344.0,32253696.0,515899392000,185717760.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,1091687424.0,611067648.0,208414464.0,515899392000,890360832.0
 5,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -142,7 +142,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,236049408.0,82585344.0,32253696.0,515899392000,210883584.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,1293014016.0,611067648.0,208414464.0,515899392000,1091687424.0
 6,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -166,7 +166,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,261215232.0,82585344.0,32253696.0,515899392000,236049408.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,1494340608.0,611067648.0,208414464.0,515899392000,1293014016.0
 7,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -190,7 +190,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,286381056.0,82585344.0,32253696.0,515899392000,261215232.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,1695667200.0,611067648.0,208414464.0,515899392000,1494340608.0
 8,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -214,7 +214,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,311546880.0,82585344.0,32253696.0,515899392000,286381056.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,1896993792.0,611067648.0,208414464.0,515899392000,1695667200.0
 9,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -238,7 +238,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,336712704.0,82585344.0,32253696.0,515899392000,311546880.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,2098320384.0,611067648.0,208414464.0,515899392000,1896993792.0
 10,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -262,7 +262,7 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,361878528.0,82585344.0,32253696.0,515899392000,336712704.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,2299646976.0,611067648.0,208414464.0,515899392000,2098320384.0
 11,"BertLayer(
   (attention): BertAttention(
     (self): BertSelfAttention(
@@ -286,4 +286,4 @@ Layer_index,Shape,Weight Size,Input Size,Output Size,f_read,f_write,f_flops,f_pe
     (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
     (dropout): Dropout(p=0.1, inplace=False)
   )
-)",28351488,1572864,1572864,32253696.0,25165824.0,257949696000,387044352.0,82585344.0,32253696.0,515899392000,361878528.0
+)",28351488,12582912,12582912,208414464.0,201326592.0,257949696000,2500973568.0,611067648.0,208414464.0,515899392000,2299646976.0
